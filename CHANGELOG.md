@@ -17,13 +17,18 @@ Upcoming changes.
 
 ### Removed
 
-## [0.0.1] - YYYY-MM-DD
+## [project-template-repo-1.0] - 2024-01-01
 
-Initial Release.
+🌱 Initial Release.
 
 ### Added
 
-- What was added.
+- Auto-Update Documentation Links with current repo name
+- Update Email Addresses: CODE_OF_CONDUCT, SECURITY.
+- Download files & folders from another GitHub Repo
+- Generate Markdown styled index file with SEO details
+- Generate Table of Contents into README
+- Several files already created for you as a template
 
 
 <!--
@@ -31,4 +36,4 @@ These Markdown anchors provide a link to the diff for each release. They should 
 updated any time a new release is cut.
 -->
 [Unreleased]: /
-[0.0.1]: /v0.0.1
+[project-template-repo-1.0]: https://github.com/smcnab1/project-template-repo/releases/tag/project-template-repo-1.0
