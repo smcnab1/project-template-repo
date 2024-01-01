@@ -1,9 +1,25 @@
-# Python program to read
-# json file
 import os
 import json
 import datetime
 import subprocess
+import requests
+
+def get_github_username():
+    github_api_url = "https://api.github.com/user"
+    github_token = os.environ.get("GITHUB_TOKEN")  # Make sure to set your GitHub token as an environment variable
+
+    headers = {
+        "Authorization": f"Bearer {github_token}" if github_token else None,
+    }
+
+    try:
+        response = requests.get(github_api_url, headers=headers)
+        response.raise_for_status()
+        user_data = response.json()
+        return user_data.get("login")
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching GitHub username: {e}")
+        return None
 
 # Get the current working directory
 current_directory = os.getcwd()
@@ -18,8 +34,11 @@ repository_name = git_url.split("/")[-1].replace(".git", "")
 # If the repository name is not found in the Git URL, use a default value
 New_Repo_Name = repository_name if repository_name else "project-template-repo"
 
-# Format the repository name as "smcnab1/New_Repo_Name"
-Text_To_Replace_With = f"smcnab1/{New_Repo_Name}"
+# Get the GitHub username
+github_username = get_github_username()
+
+# Format the repository name as "{github_username}/New_Repo_Name"
+Text_To_Replace_With = f"{github_username}/{New_Repo_Name}" if github_username else f"smcnab1/{New_Repo_Name}"
 
 # Opening JSON file
 f = open('.github/py_repo_tools/repo_config.json')

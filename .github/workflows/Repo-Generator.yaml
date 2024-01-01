@@ -30,7 +30,7 @@ on:
        Download_Files_Or_Folder:
         description: 'Download a file or folder from a GitHub Repo'
         required: False
-        default: ' https://github.com/smcnab1/project-template-repo/blob/master/images'
+        default: ''
 
 jobs:
   Repo_Builder:
@@ -43,6 +43,7 @@ jobs:
         if: ${{  github.event.inputs.Replace_Links_In_Markdown == 'true' }}
         run: |
           sudo apt-get install python3
+          pip install requests
           python3 .github/py_repo_tools/replace_repo_links.py
 
       ### Table Of Contents    
