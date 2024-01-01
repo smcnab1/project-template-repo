@@ -19,7 +19,7 @@ Text_To_Replace = config['Text_To_Replace']
 
 Text_To_Replace_With = config['Text_To_Replace_With']
 
-Date_To_Replace = config['DATE']
+Date_To_Replace = "DATE"
 
 current_date = datetime.datetime.now().strftime("%d %b %y")
 
