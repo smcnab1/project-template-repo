@@ -1,8 +1,8 @@
 input: .
 output: .retype
-url: https://smcnab1.github.io/project-template-repo/ # Add your website here
+url: docs.sammcnab.co.uk
 branding:
-  title: Project Template Repo
+  title: Project Template Repo Docs
   label: Docs
 poweredByRetype: false
 links:
@@ -21,9 +21,9 @@ breadcrumb:
   separator: "|"              # Custom item separator
 
 branding:
-  title: Project Template Repo              # Your custom website title; keep it short
-  logo: /logo.png             # Path to a logo file
-  logoDark: /logo-dark.png    # Path to a logo file to use in dark mode
+  title: Project Template Repo Docs         # Your custom website title; keep it short
+  logo: /images/avatar.png             # Path to a logo file
+  logoDark: /images/avatar.png    # Path to a logo file to use in dark mode
   logoAlign: right            # Align the logo to the right or the left
   label: Docs                 # Optional label
                               # To remove the label, remove this config
@@ -31,7 +31,7 @@ editor:                       # Configure the page live editor functionality
                               # that is only available during `retype start`
   enabled: true      
 
-favicon: static/favicon.png   # Path to a custom favicon, or
+favicon: images/favicon.ico   # Path to a custom favicon, or
 
 templating:
   enabled: true 
