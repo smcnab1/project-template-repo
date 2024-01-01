@@ -16,7 +16,7 @@ git_url = subprocess.check_output(git_command, shell=True, text=True).strip()
 repository_name = git_url.split("/")[-1].replace(".git", "")
 
 # If the repository name is not found in the Git URL, use a default value
-New_Repo_Name = repository_name if repository_name else "Default_Repo_Name"
+New_Repo_Name = repository_name if repository_name else "project-template-repo"
 
 # Format the repository name as "smcnab1/New_Repo_Name"
 Text_To_Replace_With = f"smcnab1/{New_Repo_Name}"
@@ -32,8 +32,6 @@ config = json.load(f)
 FileName = "README.md"
 
 Text_To_Replace = config['Text_To_Replace']
-
-Text_To_Replace_With = New_Repo_Name
 
 Date_To_Replace = "DATE"
 

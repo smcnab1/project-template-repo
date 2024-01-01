@@ -3,10 +3,6 @@ name: Repo Generator
 on:
    workflow_dispatch:
      inputs:
-       New_Repo_Name:
-         description: 'Enter the new Repository Name'
-         required: true
-         default: ''
        Replace_Links_In_Markdown:
          description: 'Update all links'
          type: boolean
@@ -47,8 +43,7 @@ jobs:
         if: ${{  github.event.inputs.Replace_Links_In_Markdown == 'true' }}
         run: |
           sudo apt-get install python3
-          pip install GitPython
-          REPO_NAME=${{ github.event.inputs.New_Repo_Name }} python3 .github/py_repo_tools/replace_repo_links.py
+          python3 .github/py_repo_tools/replace_repo_links.py
 
       ### Table Of Contents    
       - name: Generating Table Of Contents
