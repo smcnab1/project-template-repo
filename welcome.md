@@ -1,13 +1,8 @@
 ![](page-with-header.png)
 
----
-label: Welcome
-layout: page
-order: 100
----
-# Welcome to the Project Template Repository's Documentation
+# Welcome!
 
-![Project Logo](/images/avatar.png)
+![](/images/avatar.png)
 
 ## Overview
 
