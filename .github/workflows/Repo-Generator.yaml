@@ -30,7 +30,7 @@ on:
        Download_Files_Or_Folder:
         description: 'Download a file or folder from a GitHub Repo'
         required: False
-        default: ''
+        default: ' https://github.com/smcnab1/project-template-repo/blob/master/images'
 
 jobs:
   Repo_Builder:
