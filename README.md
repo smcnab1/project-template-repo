@@ -50,17 +50,25 @@ _Last Updated DATE_
   </a>
   </div>
   
-This repository is used as a base of laying our all repositories used by [@smcnab1](https://github.com/smcnab1). Containing all key documentation and files required for the basis of a repository.
+This repository can be used as a template to load your new repository with ease. Including the following features to save your time in generating new repositories.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Features
 
-- ...
+- Auto-Update Documentation Links with current repo name
+- Update Email Addresses: CODE_OF_CONDUCT, SECURITY.
+- Download files & folders from another GitHub Repo
+- Generate Markdown styled index file with SEO details
+- Generate Table of Contents into README
+- Several files already created for you as a template
 
 ### Built with
 
 - Markdown
+- Python
+- GitHub Actions
+- Shell
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,11 +80,36 @@ Accessible using browser or GitHub mobile application.
 
 ### Install
 
-Click on [this link](https://github.com/new?template_name=project-template-repo&template_owner=smcnab1) to generate new repository from template.
+1. Click on [use template](https://github.com/new?template_name=project-template-repo&template_owner=smcnab1) to generate new repository from template.
+
+2. Enter repository name and Description.
+
+3. Generate new repository.
+
+4. Navigate to **Settings > Actions > General** and set ***Workflow Permissions*** to _Read and write permissions_
 
 ### Usage
 
-Used by anyone to quickly generate repository, following optimal layout.
+- Repository Link Updater
+    - WIP
+
+- License Date Updater
+    - WIP
+
+- Code of Conduct Email Updater
+    - WIP
+
+- Security Policy Email Updater
+    - WIP
+
+- Table of Contents Generator
+    - WIP
+
+- Index File Generator
+    - WIP
+
+- Combinations
+    - WIP
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,10 +118,9 @@ Used by anyone to quickly generate repository, following optimal layout.
 <!-- ROADMAP -->
 ### Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Finalise Documentation.
+- [ ] Remove need for config file, all set within Actions.
+- [ ] Combination Selection instead of individual options.
 
 See the [open issues](https://github.com/smcnab1/project-template-repo/issues) for a full list of proposed features (and known issues).
 
@@ -114,25 +146,6 @@ Don't forget to give the project a star! Thanks again!
 ### License
 
 This project is licensed under the [MIT License](LICENSE.md).
-
-<!-- CONTACT -->
-
-<a name="contact"></a>
-
-### Contact
-
-[![Email][email-badge]][email-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-[![GitHub][git-badge]][git-url]
-[![Kofi][kofi-badge]][kofi-url]
-<br />
-
-<!-- ACKNOWLEDGMENTS -->
-### Acknowledgments
-
-* []()
-* []()
-* []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
