@@ -1,8 +1,9 @@
 # Python program to read
 # json file
   
-  
+import os
 import json
+import datetime
   
 # Opening JSON file
 f = open('.github/py_repo_tools/repo_config.json')
@@ -11,13 +12,14 @@ f = open('.github/py_repo_tools/repo_config.json')
 # a dictionary
 config = json.load(f)
   
+New_Repo_Name = os.environ.get('New_Repo_Name', 'default_value')
 
 # Define the filename here you want to replace content in
 FileName = "README.md"
 
 Text_To_Replace = config['Text_To_Replace']
 
-Text_To_Replace_With = config['Text_To_Replace_With']
+Text_To_Replace_With = New_Repo_Name
 
 Date_To_Replace = "DATE"
 
