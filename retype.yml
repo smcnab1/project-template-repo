@@ -1,0 +1,37 @@
+input: .
+output: .retype
+url: https://smcnab1.github.io/project-template-repo/ # Add your website here
+branding:
+  title: Project Template Repo
+  label: Docs
+poweredByRetype: false
+links:
+  - text: GitHub Repository
+    link: https://github.com/smcnab1/project-template-repo
+footer:
+  copyright: "&copy; Copyright . All rights reserved."
+  links:                      # A list of links to include in the footer
+    - text: License           # The text to use for the link
+      link: license.md        # Point to an internal file or external URL
+
+breadcrumb:
+  enabled: true               # Enabled by default on Pro projects
+  home: Home                  # Custom label for the first item
+  home: ":icon-home:"         # or, use an icon
+  separator: "|"              # Custom item separator
+
+branding:
+  title: Project Template Repo              # Your custom website title; keep it short
+  logo: /logo.png             # Path to a logo file
+  logoDark: /logo-dark.png    # Path to a logo file to use in dark mode
+  logoAlign: right            # Align the logo to the right or the left
+  label: Docs                 # Optional label
+                              # To remove the label, remove this config
+editor:                       # Configure the page live editor functionality
+                              # that is only available during `retype start`
+  enabled: true      
+
+favicon: static/favicon.png   # Path to a custom favicon, or
+
+templating:
+  enabled: true 
