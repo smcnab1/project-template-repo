@@ -6,7 +6,7 @@ branding:
   label: Docs
 poweredByRetype: false
 links:
-  - text: GitHub Repository
+  - text: GitHub
     link: https://github.com/smcnab1/project-template-repo
 footer:
   copyright: "&copy; Copyright . All rights reserved."
@@ -25,7 +25,6 @@ branding:
   logo: /images/avatar.png             # Path to a logo file
   logoDark: /images/avatar.png    # Path to a logo file to use in dark mode
   logoAlign: right            # Align the logo to the right or the left
-  label: Docs                 # Optional label
                               # To remove the label, remove this config
 editor:                       # Configure the page live editor functionality
                               # that is only available during `retype start`
