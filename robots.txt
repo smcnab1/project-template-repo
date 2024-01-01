@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://smcnab1.github.io/project-template-repo/sitemap.xml.gz
+Sitemap: https://docs.sammcnab.co.uk/sitemap.xml.gz
