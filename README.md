@@ -21,7 +21,7 @@
   <p align="center">
     Jumpstart your development with this versatile template. 🚀📁
     <br />
-    <a href="https://github.com/smcnab1/project-template-repo"><strong>Explore the docs »</strong></a>
+    <a href="https://smcnab1.github.io/project-template-repo/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/smcnab1/project-template-repo">View Demo</a>
