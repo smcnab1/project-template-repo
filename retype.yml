@@ -1,4 +1,4 @@
-input: .
+input: ./
 output: .retype
 url: https://smcnab1.github.io/project-template-repo/ 
 branding:
