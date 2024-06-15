@@ -17,7 +17,6 @@ title: Project Template
 description: Project Template Repo Documentation
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://just-the-docs.com" # the base hostname & protocol for your site, e.g. http://example.com
-repository: just-the-docs/just-the-docs # for github-metadata
 logo: "/assets/images/my-avatar.png"
 favicon_ico: "/assets/images/favicon.ico"
 
@@ -179,7 +178,6 @@ callouts:
 
 plugins:
   - jekyll-seo-tag
-  - jekyll-github-metadata
   - jekyll-include-cache
 
 kramdown:
