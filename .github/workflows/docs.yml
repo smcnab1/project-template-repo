@@ -36,7 +36,12 @@ jobs:
 
       - name: Install & Build
         run: |
-          npm ci
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            echo "No package-lock.json – using npm install"
+            npm install
+          fi
           npm run build
 
       - name: Upload artifact
