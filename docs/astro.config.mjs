@@ -2,12 +2,12 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 export default defineConfig({
-  site: "https://YOUR_USER.github.io/YOUR_REPO", // set this for correct URLs
+  site: "https://smcnab1.github.io/project-template-repo", // set this for correct URLs
   outDir: "./dist", // build output (workflow will upload this)
   integrations: [
     starlight({
-      title: "Your Project",
-      description: "Short description of your project.",
+      title: "Project Template",
+      description: "This is a template for projects",
       sidebar: [
         { label: "Introduction", link: "/"},
         { label: "Getting Started", link: "/getting-started/" },
@@ -20,7 +20,7 @@ export default defineConfig({
         }
       ],
       social: {
-        github: "https://github.com/YOUR_USER/YOUR_REPO"
+        github: "https://github.com/smcnab1/project-template-repo"
       },
       // Nice defaults already include dark mode, search, code copy, etc.
     })
