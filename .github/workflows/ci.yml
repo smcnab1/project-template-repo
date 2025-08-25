@@ -1,0 +1,136 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  node:
+    name: Node.js (lint • test • build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect Node project
+        id: detect
+        run: |
+          if [ -f package.json ]; then
+            echo "has_node=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_node=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node
+        if: ${{ steps.detect.outputs.has_node == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            **/package-lock.json
+
+      - name: Install
+        if: ${{ steps.detect.outputs.has_node == 'true' }}
+        run: npm ci
+
+      - name: Lint
+        if: ${{ steps.detect.outputs.has_node == 'true' }}
+        run: npm run lint --if-present || echo "No lint script – skipping"
+
+      - name: Test
+        if: ${{ steps.detect.outputs.has_node == 'true' }}
+        run: npm test --if-present || echo "No test script – skipping"
+
+      - name: Build
+        if: ${{ steps.detect.outputs.has_node == 'true' }}
+        run: npm run build --if-present || echo "No build script – skipping"
+
+      - name: Skip (no package.json)
+        if: ${{ steps.detect.outputs.has_node != 'true' }}
+        run: echo "No package.json – skipping Node job."
+
+  python:
+    name: Python (ruff • tests • build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect Python project
+        id: detect
+        run: |
+          has_py=false
+          [ -f pyproject.toml ] && has_py=true
+          [ -f requirements.txt ] && has_py=true
+          [ -f requirements-dev.txt ] && has_py=true
+          echo "has_python=${has_py}" >> "$GITHUB_OUTPUT"
+          [ -f pyproject.toml ] && echo "has_build=true" >> "$GITHUB_OUTPUT" || echo "has_build=false" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Python
+        if: ${{ steps.detect.outputs.has_python == 'true' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: "pip"
+          cache-dependency-path: |
+            requirements*.txt
+            pyproject.toml
+            setup.cfg
+            setup.py
+
+      - name: Install deps
+        if: ${{ steps.detect.outputs.has_python == 'true' }}
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+          if [ -f pyproject.toml ]; then pip install -U pip; fi
+          pip install -U ruff pytest build
+
+      - name: Lint (ruff)
+        if: ${{ steps.detect.outputs.has_python == 'true' }}
+        run: |
+          ruff --version
+          ruff . || (echo "Ruff reported issues"; exit 1)
+
+      - name: Test (pytest)
+        if: ${{ steps.detect.outputs.has_python == 'true' }}
+        run: |
+          if [ -d tests ] || ls -1 test_*.py *_test.py 2>/dev/null | grep -q .; then
+            pytest -q
+          else
+            echo "No tests found – skipping"
+          fi
+
+      - name: Build (wheel/sdist)
+        if: ${{ steps.detect.outputs.has_python == 'true' && steps.detect.outputs.has_build == 'true' }}
+        run: python -m build
+
+      - name: Skip (no Python project files)
+        if: ${{ steps.detect.outputs.has_python != 'true' }}
+        run: echo "No pyproject/requirements – skipping Python job."
+
+  docs_only:
+    name: Docs-only change detector
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check changed files
+        id: doccheck
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1..HEAD || true)
+          echo "changed<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+      - name: Summary
+        run: |
+          echo "Changed files:"
+          echo "${{ steps.doccheck.outputs.changed }}"

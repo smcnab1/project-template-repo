@@ -1,0 +1,28 @@
+name: "📖 Documentation Issue"
+description: Report an issue in the documentation or README
+title: "[DOC] "
+labels: ["Type: Bug", "For: Documentation"]
+assignees:
+  - smcnab1
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the issue
+      description: A clear and concise description of the documentation problem.
+      placeholder: "The README has outdated install instructions..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Suggested fix
+      description: How should this issue be addressed?
+      placeholder: "Update the README to include step X."
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Anything else that might help us understand the issue.

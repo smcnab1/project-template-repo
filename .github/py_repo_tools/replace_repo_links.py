@@ -1,74 +1,107 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import os
 import json
 import datetime
 import subprocess
 import requests
+from pathlib import Path
+import sys
 
-def get_github_username():
-    github_api_url = "https://api.github.com/user"
-    github_token = os.environ.get("GITHUB_TOKEN")  # Make sure to set your GitHub token as an environment variable
+CONFIG_PATH = Path(".github/py_repo_tools/repo_config.json")
+TARGET_FILE = Path("README.md")
+
+
+def fail(msg: str, code: int = 1) -> None:
+    print(f"❌ {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def get_github_username() -> str | None:
+    """Fetch GitHub username from API if token is available."""
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        return None
 
     headers = {
-        "Authorization": f"Bearer {github_token}" if github_token else None,
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "replace-repo-links/1.0",
     }
 
     try:
-        response = requests.get(github_api_url, headers=headers)
-        response.raise_for_status()
-        user_data = response.json()
-        return user_data.get("login")
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching GitHub username: {e}")
+        resp = requests.get("https://api.github.com/user", headers=headers, timeout=15)
+        resp.raise_for_status()
+        return resp.json().get("login")
+    except Exception as e:
+        print(f"⚠️ Warning: Could not fetch GitHub username ({e})")
         return None
 
-# Get the current working directory
-current_directory = os.getcwd()
 
-# Execute the git command to get the remote origin URL
-git_command = "git config --get remote.origin.url"
-git_url = subprocess.check_output(git_command, shell=True, text=True).strip()
+def get_repo_name() -> str:
+    """Extract repository name from git remote URL, fallback to template."""
+    try:
+        url = subprocess.check_output(
+            ["git", "config", "--get", "remote.origin.url"], text=True
+        ).strip()
+    except subprocess.CalledProcessError:
+        print("⚠️ Warning: Could not detect remote.origin.url, using default name")
+        return "project-template-repo"
 
-# Extract the repository name from the Git URL
-repository_name = git_url.split("/")[-1].replace(".git", "")
-
-# If the repository name is not found in the Git URL, use a default value
-New_Repo_Name = repository_name if repository_name else "project-template-repo"
-
-# Get the GitHub username
-github_username = get_github_username()
-
-# Format the repository name as "{github_username}/New_Repo_Name"
-Text_To_Replace_With = f"{github_username}/{New_Repo_Name}" if github_username else f"smcnab1/{New_Repo_Name}"
-
-# Opening JSON file
-f = open('.github/py_repo_tools/repo_config.json')
-  
-# returns JSON object as 
-# a dictionary
-config = json.load(f)
-
-# Define the filename here you want to replace content in
-FileName = "README.md"
-
-Text_To_Replace = config['Text_To_Replace']
-
-Date_To_Replace = "DATE"
-
-current_date = datetime.datetime.now().strftime("%d %b %y")
-
-# Closing file
-f.close()
+    repo_name = url.split("/")[-1].removesuffix(".git")
+    return repo_name or "project-template-repo"
 
 
-# Open the File
-with open(FileName, 'r') as f:
-    # Read the file contents
-    contents = f.read()
-    # Replace the file contents
-    contents = contents.replace(Text_To_Replace, Text_To_Replace_With)
-    contents = contents.replace(Date_To_Replace, current_date)
+def load_config() -> dict:
+    if not CONFIG_PATH.exists():
+        fail(f"Missing config file: {CONFIG_PATH}")
+    try:
+        with CONFIG_PATH.open(encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        fail(f"Failed to parse {CONFIG_PATH}: {e}")
 
-# Write the file out    
-with open(FileName, 'w') as f:
-    # Write the updated contents
-    f.write(contents)  
+
+def update_file(
+    target: Path, placeholder: str, replacement: str, date_token: str = "DATE"
+) -> None:
+    if not target.exists():
+        fail(f"Target file not found: {target}")
+
+    contents = target.read_text(encoding="utf-8")
+    changed = False
+
+    if placeholder in contents:
+        contents = contents.replace(placeholder, replacement)
+        changed = True
+    else:
+        print(f"⚠️ Placeholder '{placeholder}' not found in {target}")
+
+    current_date = datetime.datetime.now().strftime("%d %b %y")
+    if date_token in contents:
+        contents = contents.replace(date_token, current_date)
+        changed = True
+
+    if changed:
+        target.write_text(contents, encoding="utf-8")
+        print(f"✅ Updated {target} with repo links and date")
+    else:
+        print(f"ℹ️ No changes applied to {target}")
+
+
+def main() -> None:
+    config = load_config()
+    placeholder = config.get("PLACEHOLDER_REPO")
+    if not placeholder:
+        fail(f"No 'PLACEHOLDER_REPO' key in {CONFIG_PATH}")
+
+    repo_name = get_repo_name()
+    username = get_github_username() or "smcnab1"
+    replacement = f"{username}/{repo_name}"
+
+    update_file(TARGET_FILE, placeholder, replacement)
+
+
+if __name__ == "__main__":
+    main()

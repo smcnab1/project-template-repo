@@ -1,0 +1,56 @@
+version: 2
+updates:
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "Type: Dependency"
+      - "Status: Awaiting Review"
+    reviewers:
+      - "smcnab1"
+    # Enable immediate security PRs
+    allow:
+      - dependency-type: "all"
+    security-updates: true
+
+  # Python dependencies (pip / requirements.txt)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "Type: Dependency"
+      - "Status: Awaiting Review"
+    reviewers:
+      - "smcnab1"
+    allow:
+      - dependency-type: "all"
+    security-updates: true
+
+  # Node.js / npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "Type: Dependency"
+      - "Status: Awaiting Review"
+    reviewers:
+      - "smcnab1"
+    allow:
+      - dependency-type: "all"
+    security-updates: true

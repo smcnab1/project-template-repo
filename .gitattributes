@@ -1,0 +1,47 @@
+# ───────────────────────────────────────────────────────────────
+# ⚠️ Note: Line endings are managed by BOTH .editorconfig & .gitattributes
+#
+# - .editorconfig → tells IDEs/editors what to use when editing files (LF, CRLF, indentation, etc.)
+# - .gitattributes → enforces line endings in the repository (ensures consistent LF/CRLF in Git history)
+#
+# Together, these prevent "whitespace-only" diffs across platforms.
+# ───────────────────────────────────────────────────────────────
+
+# Enforce consistent line endings
+* text=auto eol=lf
+
+# Windows batch scripts should keep CRLF
+*.{bat,cmd} text eol=crlf
+
+# Shell scripts: LF only
+*.sh text eol=lf
+
+# Markdown and docs: LF
+*.{md,mdx} text eol=lf
+
+# JSON, YAML, TOML: LF
+*.{json,yml,yaml,toml} text eol=lf
+
+# Make sure binary files are never modified
+*.{png,jpg,jpeg,gif,ico} binary
+*.{mp4,mov,avi,mkv,webm} binary
+*.{pdf,doc,docx,xls,xlsx,ppt,pptx} binary
+*.{zip,tar.gz,7z,rar} binary
+
+# GitHub Linguist overrides (https://github.com/github/linguist)
+# Mark vendored dependencies so they don’t skew language stats
+vendor/** linguist-vendored
+node_modules/** linguist-vendored
+dist/** linguist-vendored
+build/** linguist-vendored
+
+# Force certain file types to a language for syntax highlighting
+*.yml linguist-language=YAML
+*.md linguist-language=Markdown
+*.sh linguist-language=Shell
+
+# Treat lockfiles as generated
+package-lock.json linguist-generated
+yarn.lock linguist-generated
+poetry.lock linguist-generated
+Pipfile.lock linguist-generated

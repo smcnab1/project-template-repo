@@ -1,0 +1,76 @@
+labels:
+  - name: "Type: Bug"
+    color: "e80c0c"
+    description: "Something isn't working as expected."
+
+  - name: "Type: Enhancement"
+    color: "54b2ff"
+    description: "Suggest an improvement for an existing feature."
+
+  - name: "Type: Feature"
+    color: "54b2ff"
+    description: "Suggest a new feature."
+
+  - name: "Type: Security"
+    color: "fbff00"
+    description: "A problem or enhancement related to a security issue."
+
+  - name: "Type: Question"
+    color: "9309ab"
+    description: "Request for information."
+
+  - name: "Status: Awaiting Review"
+    color: "24d15d"
+    description: "Ready for review."
+
+  - name: "Status: WIP"
+    color: "07b340"
+    description: "Currently being worked on."
+
+  - name: "Status: Waiting"
+    color: "38C968"
+    description: "Waiting on something else to be ready."
+
+  - name: "Status: Stale"
+    color: "66b38a"
+    description: "Has had no activity for some time."
+
+  - name: "Priority: Critical"
+    color: "ff008c"
+    description: "Task is considered critical."
+
+  - name: "Priority: Low"
+    color: "690a34"
+    description: "Task is considered lower-priority."
+
+  - name: "Documentation"
+    color: "2fbceb"
+    description: "An issue/change with the documentation."
+
+  - name: "Duplicate"
+    color: "eb862d"
+    description: "Duplicate of another issue."
+
+  - name: "Invalid"
+    color: "faef50"
+    description: "This issue doesn't seem right."
+
+  - name: "Won't fix"
+    color: "c8d9e6"
+    description: "Reported issue is working as intended."
+
+  - name: "3rd party issue"
+    color: "e88707"
+    description: "Caused by external package or dependency."
+
+  - name: "OS: Windows"
+    color: "aeb1c2"
+    description: "Windows-specific."
+
+  - name: "OS: Mac"
+    color: "aeb1c2"
+    description: "Mac-specific."
+
+  - name: "OS: Linux"
+    color: "aeb1c2"
+    description: "Linux-specific."

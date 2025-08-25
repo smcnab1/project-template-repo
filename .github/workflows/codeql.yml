@@ -1,0 +1,53 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  schedule:
+    - cron: "35 2 * * 1" # Mondays 02:35 UTC
+
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript, python]
+        # Add more if needed: ["cpp", "csharp", "go", "java-kotlin", "ruby", "swift"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialise CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # queries: security-extended,security-and-quality
+
+      # If your repo needs a build (e.g. TypeScript, compiled assets), do it here.
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      # If autobuild fails or you need custom steps, replace with your own build commands:
+      # - run: |
+      #     npm ci
+      #     npm run build
+      #     pip install -r requirements.txt
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"

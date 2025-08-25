@@ -1,0 +1,30 @@
+name: "❓ Question / Support Request"
+description: Ask a question or request support
+title: "[Q] "
+labels: ["Type: Question"]
+assignees:
+  - smcnab1
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ❓ **Before posting:**  
+        - Check the README and Wiki for answers.  
+        - Search open and closed issues.  
+        - Review the Code of Conduct in `.github/CODE_OF_CONDUCT.md`.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question or request
+      description: Clearly describe your question or what support you need.
+      placeholder: "How do I configure X with Y?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Provide any extra details that may help.
+      placeholder: "Screenshots, logs, or use cases..."

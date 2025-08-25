@@ -1,1 +1,8 @@
-{"Text_To_Replace": "smcnab1/project-template-repo", "Text_To_Replace_With": "smcnab1/Your-Repo-Name", "EMAIL" : "sam@sammcnab.co.uk"}
+{
+  "PLACEHOLDER_REPO": "smcnab1/project-template-repo",
+  "CONTACT_EMAIL": "sam@sammcnab.co.uk",
+  "LICENSE_START_YEAR": "2025",
+  "PROJECT_DESCRIPTION": "Template repository for @smcnab1.",
+  "PROJECT_AUTHOR": "Sam McNab",
+  "PROJECT_HOMEPAGE": "https://sammcnab.co.uk"
+}

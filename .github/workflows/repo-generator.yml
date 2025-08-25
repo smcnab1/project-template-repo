@@ -1,0 +1,153 @@
+name: Repo Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      replace_links_in_markdown:
+        description: "Update all links"
+        type: boolean
+        required: false
+        default: false
+      update_license_date:
+        description: "Update Licence Date"
+        type: boolean
+        required: false
+        default: false
+      update_code_of_conduct_email:
+        description: "Update Code of Conduct email"
+        type: boolean
+        required: false
+        default: false
+      update_security_policy_email:
+        description: "Update Security Policy email"
+        type: boolean
+        required: false
+        default: false
+      generate_table_of_contents:
+        description: "Generate Table of Contents"
+        type: boolean
+        required: false
+        default: false
+      generate_index_file:
+        description: "Generate Index File"
+        type: boolean
+        required: false
+        default: false
+      download_files_or_folder:
+        description: "Download a file or folder from a GitHub repo"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repo-generator-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    name: Docs & Index
+    runs-on: ubuntu-22.04
+    if: >
+      ${{
+        github.event.inputs.replace_links_in_markdown == 'true' ||
+        github.event.inputs.generate_table_of_contents == 'true' ||
+        github.event.inputs.generate_index_file == 'true'
+      }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update links in Markdown
+        if: ${{ github.event.inputs.replace_links_in_markdown == 'true' }}
+        run: |
+          pip install --disable-pip-version-check --no-input requests
+          python3 .github/py_repo_tools/replace_repo_links.py
+
+      - name: Generate Table of Contents
+        if: ${{ github.event.inputs.generate_table_of_contents == 'true' }}
+        run: |
+          npx markdown-toc-gen@1.2.0 update README.md
+
+      - name: Generate Index File
+        if: ${{ github.event.inputs.generate_index_file == 'true' }}
+        env:
+          INPUT_STORE: ${{ github.event.repository.url }}
+        run: |
+          python3 .github/py_repo_tools/generate_index_file.py
+
+      - name: Commit changes (docs)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(docs): automated updates [skip ci]"
+            git push
+          fi
+
+  policies:
+    name: Policies & Metadata
+    runs-on: ubuntu-22.04
+    if: >
+      ${{
+        github.event.inputs.update_license_date == 'true' ||
+        github.event.inputs.update_code_of_conduct_email == 'true' ||
+        github.event.inputs.update_security_policy_email == 'true'
+      }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Licence Date
+        if: ${{ github.event.inputs.update_license_date == 'true' }}
+        run: |
+          python3 .github/py_repo_tools/update_license_date.py
+
+      - name: Update Code of Conduct email
+        if: ${{ github.event.inputs.update_code_of_conduct_email == 'true' }}
+        run: |
+          python3 .github/py_repo_tools/replace_code_of_conduct_info.py
+
+      - name: Update Security Policy email
+        if: ${{ github.event.inputs.update_security_policy_email == 'true' }}
+        run: |
+          python3 .github/py_repo_tools/replace_security_policy_email.py
+
+      - name: Commit changes (policies)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(policies): automated updates [skip ci]"
+            git push
+          fi
+
+  download:
+    name: Download from GitHub
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.inputs.download_files_or_folder != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download file/folder
+        run: |
+          chmod +x .github/py_repo_tools/shell_scripts/github_downloader.sh
+          .github/py_repo_tools/shell_scripts/github_downloader.sh "${{ github.event.inputs.download_files_or_folder }}"
+
+      - name: Commit changes (download)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(download): added files via downloader [skip ci]"
+            git push
+          fi

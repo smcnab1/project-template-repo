@@ -1,0 +1,43 @@
+repos:
+  # 🔹 General code formatter (Prettier)
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.3
+    hooks:
+      - id: prettier
+        files: \.(js|ts|jsx|tsx|json|css|scss|md|yaml|yml|html)$
+        additional_dependencies: ["prettier@3.0.3"]
+
+  # 🔹 Markdown linting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        files: \.(md|mdx)$
+        args: ["--disable", "MD013"] # disable long-line rule if too strict
+
+  # 🔹 YAML linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        files: \.(yaml|yml)$
+        args: ["-d", "{extends: default, rules: {line-length: disable}}"]
+
+  # 🔹 JavaScript/TypeScript linting
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.14.0
+    hooks:
+      - id: eslint
+        files: \.(js|jsx|ts|tsx)$
+        additional_dependencies:
+          - "eslint@9.14.0"
+          - "eslint-config-prettier"
+          - "eslint-plugin-import"
+
+  # 🔹 Python linting/formatting (Ruff replaces flake8, black, isort)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix] # auto-fix issues where possible
+      - id: ruff-format

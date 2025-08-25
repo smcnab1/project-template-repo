@@ -36,6 +36,7 @@
   <summary>View Contents</summary>
 
 _Last Updated DATE_
+
 <!-- toc -->
 
 - [About The Project](#about-the-project)
@@ -51,11 +52,13 @@ _Last Updated DATE_
   - [License](#license)
 
 <!-- tocstop -->
-  
+
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
+
 <div align="center">
   <a href="https://github.com/smcnab1/project-template-repo">
     <img src="images/screenshot.png" alt="Logo" width="100%" height="auto">
@@ -98,36 +101,14 @@ Accessible using browser or GitHub mobile application.
 
 3. Generate new repository.
 
-4. Navigate to **Settings > Actions > General** and set ***Workflow Permissions*** to _Read and write permissions_
-
-### Usage
-
-- Repository Link Updater
-    - WIP
-
-- License Date Updater
-    - WIP
-
-- Code of Conduct Email Updater
-    - WIP
-
-- Security Policy Email Updater
-    - WIP
-
-- Table of Contents Generator
-    - WIP
-
-- Index File Generator
-    - WIP
-
-- Combinations
-    - WIP
+4. Navigate to **Settings > Actions > General** and set **_Workflow Permissions_** to _Read and write permissions_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Back Matter
 
 <!-- ROADMAP -->
+
 ### Roadmap
 
 - [ ] Finalise Documentation.

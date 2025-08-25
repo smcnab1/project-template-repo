@@ -1,31 +1,44 @@
 # Security Policy
 
+We take the security of this project seriously and appreciate your efforts to responsibly disclose vulnerabilities.
+
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Only the latest release line is actively supported. Please make sure you are testing against the most recent version before reporting an issue.
 
 ## Reporting a Vulnerability
 
-If you have identified a security vulnerability in system or product please email `sam@sammcnab.co.uk` with your findings. We strongly recommend using our `PGP key` to prevent this information from falling into the wrong hands.
+If you believe you’ve found a security vulnerability in this repository:
 
-### Disclosure Policy
+- **Do not open a public issue or pull request.**
+- Please email: **sam@sammcnab.co.uk**
+- Provide as much detail as possible (steps to reproduce, affected files/versions, impact).
+- Avoid including sensitive personal data in the report. If needed, we will request additional details via a secure channel.
 
-Upon receipt of a security report the following steps will be taken:
+## Service Level Agreement (SLA)
 
-- Acknowledge your report within 48 hours, and provide a further more detailed update within 48 hours.
-- Confirm the problem and determine the affected versions
-- Keep you informed of the progress towards resolving the problem and notify you when the vulnerability has been fixed.
-- Audit code to find any potential similar problems.
-- Prepare fixes for all releases still under maintenance. These fixes will be released as fast as possible.
-- Handle your report with strict confidentiality, and not pass on your personal details to third parties without your permission.
+We aim to meet the following response times:
 
-Whilst the issue is under investigation
+- **Acknowledgement:** within **48 hours**
+- **Initial assessment:** within **5 working days**
+- **Resolution / mitigation plan:** communicated within **10 working days** of acknowledgement
 
-- **Do** provide as much information as possible.
-- **Do not** exploit of the vulnerability or problem you have discovered.
-- **Do not** reveal the problem to others until it has been resolved.
+Critical vulnerabilities will be prioritised and addressed as soon as possible.
+
+## Scope
+
+This policy applies to:
+
+- Source code in this repository
+- Associated GitHub Actions workflows and configurations
+- Project documentation (if it affects security)
+
+## Out of Scope
+
+- Issues in third-party dependencies (please report upstream where possible)
+- Social engineering attacks
+- Denial-of-Service (DoS) without exploitable vulnerability
+
+---
+
+Thank you for helping keep this project and its users safe.

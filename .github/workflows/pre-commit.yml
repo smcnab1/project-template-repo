@@ -1,0 +1,48 @@
+name: pre-commit
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: precommit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    name: Run pre-commit hooks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Python needed for pre-commit + some hooks (ruff, yamllint)
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      # Node needed for eslint + prettier + markdownlint-cli hooks
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Speed up subsequent runs
+      - name: Cache pre-commit
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install pre-commit
+        run: pip install --disable-pip-version-check pre-commit
+
+      - name: Run pre-commit on all files
+        run: pre-commit run --all-files
